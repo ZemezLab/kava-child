@@ -79,16 +79,3 @@ function kava_child_structures( $structures_manager ) {
 	$structures_manager->register_structure( 'Kava_Child_Structure_Archive' );
 
 }
-
-add_action( 'jet-theme-core/register-config', 'kava_child_core_config' );
-function kava_child_core_config( $manager ) {
-	$manager->register_config(
-		array(
-			'dashboard_page_name' => esc_html__( 'Theme Name', 'jet-theme-core' ),
-			'library_button'      => false,
-			'menu_icon'           => 'dashicons-admin-generic',
-			'api'                 => array( 'enabled' => false ),
-			'guide'               => array( 'enabled' => false ),
-		)
-	);
-}
