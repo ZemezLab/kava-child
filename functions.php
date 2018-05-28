@@ -3,6 +3,8 @@
  * Child functions and definitions.
  */
 add_filter( 'kava-theme/assets-depends/styles', 'kava_child_styles_depends' );
+add_filter( 'kava-theme/disabled-modules', 'kava_child_disabled_modules' );
+add_action( 'jet-theme-core/register-config', 'kava_child_core_config' );
 
 /**
  * Enqueue styles.
@@ -24,58 +26,29 @@ function kava_child_styles_depends( $deps ) {
 }
 
 /**
- * Disable magic button for your clients
+ * Register JetThemeCore config
  *
- * Un-comment next line to disble magic button output for you clients.
+ * @param  [type] $manager [description]
+ * @return [type]          [description]
  */
-//add_action( 'jet-theme-core/register-config', 'kava_child_disable_magic_button' );
-
-function kava_child_disable_magic_button( $config_manager ) {
-	$config_manager->register_config( array(
-		'library_button' => false,
-	) );
-}
-
-/**
- * Disable unnecessary theme modules
- *
- * Un-comment next line and return unnecessary modules from returning modules array.
- */
-//add_filter( 'kava-theme/allowed-modules', 'kava_child_allowed_modules' );
-
-function kava_child_allowed_modules( $modules ) {
-
-	return array(
-		'blog-layouts'    => array(),
-		'crocoblock'      => array(),
-		'woo'             => array(
-			'woo-breadcrumbs' => array(),
-			'woo-page-title'  => array(),
-		),
+function kava_child_core_config( $manager ) {
+	$manager->register_config(
+		array(
+			'dashboard_page_name' => esc_html__( 'Kava Child', 'kava-child' ),
+			'library_button'      => false,
+			'menu_icon'           => 'dashicons-admin-generic',
+			'api'                 => array( 'enabled' => false ),
+		)
 	);
-
 }
 
 /**
- * Registering a new structure
+ * Disabled not required modules.
  *
- * To change structure and apropriate documnet type parameters go to
- * structures/archive.php and document-types/archive.php
- *
- * To print apropriate location add next code where you need it:
- * if ( function_exists( 'jet_theme_core' ) ) {
- *     jet_theme_core()->locations->do_location( 'kava_child_archive' );
- * }
- * Where 'kava_child_archive' - apropritate location name (from example).
- *
- * Un-comment next line to register new structure.
+ * @param  array $modules Default disabled modules
+ * @return array
  */
-//add_action( 'jet-theme-core/structures/register', 'kava_child_structures' );
-
-function kava_child_structures( $structures_manager ) {
-
-	require get_theme_file_path( 'structures/archive.php' );
-
-	$structures_manager->register_structure( 'Kava_Child_Structure_Archive' );
-
+function kava_child_disabled_modules( $modules ) {
+	$modules[] = 'blog-layouts';
+	return $modules;
 }
