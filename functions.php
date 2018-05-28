@@ -61,6 +61,10 @@ function kava_child_disabled_modules( $modules ) {
  */
 function kava_child_plugins_wizard_config() {
 
+	if ( ! is_admin() ) {
+		return;
+	}
+
 	if ( ! function_exists( 'jet_plugins_wizard_register_config' ) ) {
 		return;
 	}
@@ -124,6 +128,10 @@ function kava_child_plugins_wizard_config() {
  * @return [type] [description]
  */
 function kava_child_data_importer_config() {
+
+	if ( ! is_admin() ) {
+		return;
+	}
 
 	if ( ! function_exists( 'jet_data_importer_register_config' ) ) {
 		return;
