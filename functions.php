@@ -75,7 +75,9 @@ function kava_child_allowed_modules( $modules ) {
 function kava_child_structures( $structures_manager ) {
 
 	require get_theme_file_path( 'structures/archive.php' );
+	require get_theme_file_path( 'structures/404.php' );
 
 	$structures_manager->register_structure( 'Kava_Child_Structure_Archive' );
+	$structures_manager->register_structure( 'Kava_Child_Structure_404' );
 
 }
